@@ -58,13 +58,15 @@ if __name__ == "__main__":
     sbd10 = SBD10(en_pin=22, dir_pin=17, stp_pin=27)
 
     sbd10.enable(GPIO.LOW)  # Enable motor
-    sbd10.direction(GPIO.LOW)  # Set motor direction
+    sbd10.direction(GPIO.HIGH)  # Set motor direction
 
     # Continuous pulse for 10 seconds
     start_time = time.time()
     while time.time() - start_time < 10:
         sbd10.continuous_pulse(1000)  # Adjust pulse duration as needed
+        time.sleep(1)  # Wait for 1 second
+        print(f"Pulse count: {sbd10.pulse_cnt}")
 
     sbd10.enable(GPIO.HIGH)  # Disable motor
 
-    GPIO.cleanup()  # Cleanup GPIO settings
+    GPIO.cleanup()  # Cleanup GPIO settings 
