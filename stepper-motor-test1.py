@@ -21,16 +21,26 @@ GPIO.setup(STEP, GPIO.OUT)
 
 # Set the first direction you want it to spin
 GPIO.output(EN, GPIO.HIGH)
-GPIO.output(DIR, GPIO)
+GPIO.output(DIR, GPIO.HIGH)
 
 try:
-    # Run forever.
-    while True:
-        # Run for 200 steps. This will change based on how you set your controller
-        for x in range(200):
-            # Set one coil winding to high
-            GPIO.output(STEP, GPIO.HIGH)
-  
+	# Run forever.
+	while True:
+
+		"""Change Direction: Changing direction requires time to switch. The
+		time is dictated by the stepper motor and controller. """
+		# Run for 200 steps. This will change based on how you set you controller
+		for x in range(200):
+
+			# Set one coil winding to high
+			GPIO.output(STEP,GPIO.HIGH)
+			# Allow it to get there.
+			sleep(.005) # Dictates how fast stepper motor will run
+			# Set coil winding to low
+			GPIO.output(STEP,GPIO.LOW)
+			sleep(.005) # Dictates how fast stepper motor will run
+
+		
 
 # Once finished clean everything up
 except KeyboardInterrupt:
