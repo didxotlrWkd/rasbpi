@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-EN = 9
+EN = 15
 # Direction pin from controller
 DIR = 11
 # Step pin from controller
@@ -20,8 +20,8 @@ GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
 
 # Set the first direction you want it to spin
-GPIO.output(EN, GPIO.LOW)
-GPIO.output(DIR, GPIO.LOW)
+GPIO.output(EN, GPIO.HIGH)
+GPIO.output(DIR, GPIO)
 
 try:
     # Run forever.
@@ -30,7 +30,7 @@ try:
         for x in range(200):
             # Set one coil winding to high
             GPIO.output(STEP, GPIO.HIGH)
-           
+  
 
 # Once finished clean everything up
 except KeyboardInterrupt:
