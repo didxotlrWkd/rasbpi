@@ -11,8 +11,8 @@
 from time import sleep
 import RPi.GPIO as GPIO
 #
-PUL = 17  # Stepper Drive Pulses
-DIR = 27  # Controller Direction Bit (High for Controller default / LOW to Force a Direction Change).
+PUL = 27  # Stepper Drive Pulses
+DIR = 17  # Controller Direction Bit (High for Controller default / LOW to Force a Direction Change).
 ENA = 22  # Controller Enable Bit (High to Enable / LOW to Disable).
 # DIRI = 14  # Status Indicator LED - Direction
 # ENAI = 15  # Status indicator LED - Controller Enable
@@ -26,7 +26,7 @@ GPIO.setup(PUL, GPIO.OUT)
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(ENA, GPIO.OUT)
 # GPIO.setup(DIRI, GPIO.OUT)
-# GPIO.setup(ENAI, GPIO.OUT)
+# GPIO.setup(ENAI, GPIO.OUT)0
 #
 print('PUL = GPIO 17 - RPi 3B-Pin #11')
 print('DIR = GPIO 27 - RPi 3B-Pin #13')
@@ -39,7 +39,7 @@ durationBwd = 5000 # This is the duration of the motor spinning. used for revers
 print('Duration Fwd set to ' + str(durationFwd))
 print('Duration Bwd set to ' + str(durationBwd))
 #
-delay = 0.0000001 # This is actualy a delay between PUL pulses - effectively sets the mtor rotation speed.
+delay = 0.05 # This is actualy a delay between PUL pulses - effectively sets the mtor rotation speed.
 print('Speed set to ' + str(delay))
 #
 cycles = 1000 # This is the number of cycles to be run once program is started.
@@ -90,24 +90,17 @@ def reverse():
     sleep(.5) # pause for possible change direction
     return
 
-while cyclecount < cycles:
-    forward()
-    reverse()
-    cyclecount = (cyclecount + 1)
-    print('Number of cycles completed: ' + str(cyclecount))
-    print('Number of cycles remaining: ' + str(cycles - cyclecount))
-#
 
-while True:
-    dir = int(input("check dir: "))
-    if dir == 1:
-        forward()
-    elif dir == 2:
-        reverse()
-    else :
-        break
-
-    
-GPIO.cleanup()
-print('Cycling Completed')
-#
+try: 
+    while True:
+        dir = int(input("check dir: "))
+        if dir == 1:
+            forward()
+        elif dir == 2:
+            reverse()
+        else :
+            GPIO.cleanup()
+            break
+except KeyboardInterrupt:
+	print("cleanup")
+	GPIO.cleanup()
