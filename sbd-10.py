@@ -28,8 +28,12 @@ class SBD10:
 
         if pulse_us > 0x3FFF:
             pulse_us = 0x3FFF
-
+ 
         pulse_period = pulse_us * 2  # Convert to period
+
+        # 직접 count_pulse 콜백 함수 호출
+        self.count_pulse(None)
+
         GPIO.output(self.stp_pin, GPIO.HIGH)
         time.sleep(pulse_period / 1000000.0)
         GPIO.output(self.stp_pin, GPIO.LOW)
@@ -52,21 +56,18 @@ class SBD10:
     def count_pulse(self, channel):
         self.pulse_cnt += 1
 
-
-# 사용 예시
 if __name__ == "__main__":
-    sbd10 = SBD10(en_pin=22, dir_pin=17, stp_pin=27)
+    sbd10 = SBD10(en_pin=15, dir_pin=11, stp_pin=13)
 
     sbd10.enable(GPIO.LOW)  # Enable motor
-    sbd10.direction(GPIO.HIGH)  # Set motor direction
+    sbd10.direction(GPIO.LOW)  # Set motor direction
 
     # Continuous pulse for 10 seconds
     start_time = time.time()
     while time.time() - start_time < 10:
         sbd10.continuous_pulse(1000)  # Adjust pulse duration as needed
-        time.sleep(1)  # Wait for 1 second
         print(f"Pulse count: {sbd10.pulse_cnt}")
 
     sbd10.enable(GPIO.HIGH)  # Disable motor
 
-    GPIO.cleanup()  # Cleanup GPIO settings 
+    GPIO.cleanup()  # Cleanup GPIO settings
