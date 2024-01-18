@@ -57,7 +57,7 @@ class SBD10:
         self.pulse_cnt += 1
 
 if __name__ == "__main__":
-    sbd10 = SBD10(en_pin=15, dir_pin=11, stp_pin=13)
+    sbd10 = SBD10(en_pin=3, dir_pin=0, stp_pin=2)
 
     sbd10.enable(GPIO.LOW)  # Enable motor
     sbd10.direction(GPIO.LOW)  # Set motor direction
