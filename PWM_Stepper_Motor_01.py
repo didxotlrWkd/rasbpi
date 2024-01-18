@@ -11,9 +11,9 @@
 from time import sleep
 import RPi.GPIO as GPIO
 #
-PUL = 2  # Stepper Drive Pulses
-DIR = 0  # Controller Direction Bit (High for Controller default / LOW to Force a Direction Change).
-ENA = 3  # Controller Enable Bit (High to Enable / LOW to Disable).
+PUL = 17  # Stepper Drive Pulses
+DIR = 27  # Controller Direction Bit (High for Controller default / LOW to Force a Direction Change).
+ENA = 22  # Controller Enable Bit (High to Enable / LOW to Disable).
 # DIRI = 14  # Status Indicator LED - Direction
 # ENAI = 15  # Status indicator LED - Controller Enable
 #
@@ -31,13 +31,9 @@ GPIO.setup(ENA, GPIO.OUT)
 print('PUL = GPIO 17 - RPi 3B-Pin #11')
 print('DIR = GPIO 27 - RPi 3B-Pin #13')
 print('ENA = GPIO 22 - RPi 3B-Pin #15')
-# print('ENAI = GPIO 14 - RPi 3B-Pin #8')
-# print('DIRI = GPIO 15 - RPi 3B-Pin #10')
 
-#
 print('Initialization Completed')
-#
-# Could have usesd only one DURATION constant but chose two. This gives play options.
+
 durationFwd = 5000 # This is the duration of the motor spinning. used for forward direction
 durationBwd = 5000 # This is the duration of the motor spinning. used for reverse direction
 print('Duration Fwd set to ' + str(durationFwd))
@@ -49,16 +45,16 @@ print('Speed set to ' + str(delay))
 cycles = 1000 # This is the number of cycles to be run once program is started.
 cyclecount = 0 # This is the iteration of cycles to be run once program is started.
 print('number of Cycles to Run set to ' + str(cycles))
-#
-#
-def forward():
-    GPIO.output(ENA, GPIO.HIGH)
+
+GPIO.output(ENA, GPIO.LOW)
    
-    print('ENA set to HIGH - Controller Enabled')
-    #
-    sleep(.5) # pause due to a possible change direction
-    GPIO.output(DIR, GPIO.LOW)
+print('ENA set to HIGH - Controller Enabled')
+
+sleep(.5) # pause due to a possible change direction
+GPIO.output(DIR, GPIO.LOW)
   
+  
+def forward():  
     print('DIR set to LOW - Moving Forward at ' + str(delay))
     print('Controller PUL being driven.')
     for x in range(durationFwd): 
@@ -66,7 +62,6 @@ def forward():
         sleep(delay)
         GPIO.output(PUL, GPIO.LOW)
         sleep(delay)
-    GPIO.output(ENA, GPIO.LOW)
 
     print('ENA set to LOW - Controller Disabled')
     sleep(.5) # pause for possible change direction
