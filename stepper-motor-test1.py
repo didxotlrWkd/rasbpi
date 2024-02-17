@@ -2,9 +2,9 @@ import RPi.GPIO as GPIO
 from time import sleep
 
 # Direction pin from controller
-DIR = 17
+DIR = 16
 # Step pin from controller
-STEP = 27
+STEP = 1
 # 0/1 used to signify clockwise or counterclockwise.
 CW = 1
 CCW = 0

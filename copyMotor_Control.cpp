@@ -13,7 +13,7 @@ void setup(){
   	pinMode(ENA, OUTPUT);
 	pinMode(DIR, OUTPUT);
 	pinMode(PUL, OUTPUT);
-    digitalWrite(ENA, HIGH);
+    digitalWrite(ENA, LOW);
 //	digitalWrite(ENA, LOW);
 //	digitalWrite(DIR, LOW);
 //	digitalWrite(PUL, LOW);
@@ -25,18 +25,18 @@ int main(){
 	cout << "wiring pi" << endl;
 
 	while(1){
-		for(int i = 0; i < 1000; i++){
+		for(int i = 0; i < 5000; i++){
 		        digitalWrite(DIR, LOW);
-		        digitalWrite(ENA, LOW);
+		        digitalWrite(ENA, HIGH);
 			digitalWrite(PUL, HIGH);
-			delay(1);
+			delay(0.5);
 			digitalWrite(PUL, LOW);
-			delay(1);
+			delay(0.5);
 		}
 
 	        for(int i = 0; i < 1000; i++){
 	                digitalWrite(DIR, HIGH);
-	                digitalWrite(ENA, LOW);
+	                digitalWrite(ENA, HIGH);
 	                digitalWrite(PUL, HIGH);
 	                delay(2);
 	                digitalWrite(PUL, LOW);
@@ -44,7 +44,7 @@ int main(){
         	}
 	}
 
-        digitalWrite(ENA, LOW);
+        digitalWrite(ENA, HIGH);
         digitalWrite(DIR, LOW);
 
 	return 0;
